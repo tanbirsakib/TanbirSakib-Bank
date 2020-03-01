@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+<body>
 <div id="login-area">
     <h1 class="text-center">Welcome to TanbirSakib Bank Account</h1>
     <div class="submit-area">
@@ -20,32 +21,54 @@
 
     </div>
 </div>
-   <div id="transaction-area">
+<div id="transaction-area">
       <div class="row">
        <div class ="col-md-4">
          <div class="deposit status">
             <h5>Deposit</h5>
-            <h2>$00</h2>
+            <h2>$ <span id="currentDeposit">00</span></h2>
          </div>
         </div> 
         <div class = "col-md-4">
          <div class="withdrow status">
             <h5>Withdrow</h5>
-            <h2>$00</h2>
+            <h2>$<span id="currentWithdraw">00</span></h2>
          </div>
      </div>
      <div class = "col-md-4">
          <div class="balance status">
             <h5>Balance</h5>
-            <h2>$1240</h2>
+            <h2>$ <span id="currentBalance">1240</span></h2>
          </div>
-     </div class = "col-md-4">
       </div>
 
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="submit-area">
+                <h4>Deposit</h4>
+            <input id="depositAmount" type="text" class="form-control" placeholder="$ amount you want to deposit">
+            <br>
+            <button class="btn btn-success" id="clickDeposit">Deposit</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="submit-area">
+                <h4>Withdraw</h4>
+            <input id="withdrawAmount" type="text"  class="form-control" placeholder="$ ammount you want to withdraw">
+            <br>
+            <button class="btn btn-success" id="clickWithdraw">Withdraw</button>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
 
 
 <script>
+    
     const buttonProcess = document.getElementById("submit");
     buttonProcess.addEventListener("click", function(){
         const loginArea =document.getElementById("login-area");
@@ -53,8 +76,52 @@
         const transactionArea = document.getElementById("transaction-area");
         transactionArea.style.display = "block";
     })
+    //deposit button
+    const depositBtn = document.getElementById("clickDeposit");
+    depositBtn.addEventListener("click", function(){
+       const depositAmount = document.getElementById("depositAmount").value;
+        const depositTaka = parseFloat(depositAmount);
+
+        const currentDeposit =document.getElementById("currentDeposit").innerText;
+        const currentDepositTaka = parseFloat(currentDeposit);
+        const totalDeposit = currentDepositTaka + depositTaka;
+        document.getElementById("currentDeposit").innerText = totalDeposit;
+
+        const currentBalance = document.getElementById("currentBalance").innerText;
+        const currentBalanceTaka = parseFloat(currentBalance);
+        const totalCurrentBalance = currentBalanceTaka + depositTaka;
+        document.getElementById("currentBalance").innerText =totalCurrentBalance;
+
+        document.getElementById("depositAmount").value = "";
+
+         })
+         //withdrawbutton
+         const withdrawBtn = document.getElementById("clickWithdraw");
+         withdrawBtn.addEventListener("click", function(){
+           const withdrawAmount = document.getElementById("withdrawAmount").value;
+           const withdrawTaka = parseFloat(withdrawAmount);
+           
+           const currentWithdraw = document.getElementById("currentWithdraw").innerText;
+           const currentWithdrawTaka = parseFloat(currentWithdraw);
+           const totalWithdraw = currentWithdrawTaka + withdrawTaka;
+           document.getElementById("currentWithdraw").innerText = totalWithdraw ;
+
+           const currentBalance = document.getElementById("currentBalance").innerText;
+           const currentBalanceTaka = parseFloat(currentBalance);
+           const totalCurrentBalance = currentBalanceTaka - withdrawTaka;
+           document.getElementById("currentBalance").innerText =totalCurrentBalance;
+
+
+            document.getElementById("withdrawAmount").value = "";
+
+
+
+
+
+         })
+
 </script>
-<body>
+
     
 </body>
 </html>
